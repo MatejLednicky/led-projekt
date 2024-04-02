@@ -7,12 +7,12 @@ describe('led-treatment-list', () => {
       components: [LedTreatmentList],
       html: `<led-treatment-list></led-treatment-list>`,
     });
-    expect(page.root).toEqualHtml(`
-      <led-treatment-list>
-        <mock:shadow-root>
-          <slot></slot>
-        </mock:shadow-root>
-      </led-treatment-list>
-    `);
+
+    const wlList = page.rootInstance as LedTreatmentList;
+    const expectedPatients = wlList?.waitingPatients?.length
+
+    const items = page.root.shadowRoot.querySelectorAll("md-list-item");
+    expect(items.length).toEqual(expectedPatients);
+
   });
 });
