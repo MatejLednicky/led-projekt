@@ -68,6 +68,110 @@ export interface Treatment {
 export const LedTreatmentListApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Create new treatment
+         * @summary Create new treatment
+         * @param {Treatment} treatment Create new treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTreatment: async (treatment: Treatment, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'treatment' is not null or undefined
+            assertParamExists('createTreatment', 'treatment', treatment)
+            const localVarPath = `/treatments`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(treatment, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Use this method to delete the specific treatment.
+         * @summary Deletes specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTreatment: async (treatmentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'treatmentId' is not null or undefined
+            assertParamExists('deleteTreatment', 'treatmentId', treatmentId)
+            const localVarPath = `/treatments/{treatmentId}`
+                .replace(`{${"treatmentId"}}`, encodeURIComponent(String(treatmentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * By using treatmentId you can details of particular treatment.
+         * @summary Provides details about treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTreatmentDetail: async (treatmentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'treatmentId' is not null or undefined
+            assertParamExists('getTreatmentDetail', 'treatmentId', treatmentId)
+            const localVarPath = `/treatments/{treatmentId}`
+                .replace(`{${"treatmentId"}}`, encodeURIComponent(String(treatmentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get list of treatments
          * @summary Provides the list of all treatments
          * @param {*} [options] Override http request option.
@@ -97,6 +201,46 @@ export const LedTreatmentListApiAxiosParamCreator = function (configuration?: Co
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Use this method to update content of the treatment.
+         * @summary Updates specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {Treatment} treatment Treatment to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTreatment: async (treatmentId: string, treatment: Treatment, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'treatmentId' is not null or undefined
+            assertParamExists('updateTreatment', 'treatmentId', treatmentId)
+            // verify required parameter 'treatment' is not null or undefined
+            assertParamExists('updateTreatment', 'treatment', treatment)
+            const localVarPath = `/treatments/{treatmentId}`
+                .replace(`{${"treatmentId"}}`, encodeURIComponent(String(treatmentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(treatment, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -108,6 +252,39 @@ export const LedTreatmentListApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LedTreatmentListApiAxiosParamCreator(configuration)
     return {
         /**
+         * Create new treatment
+         * @summary Create new treatment
+         * @param {Treatment} treatment Create new treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createTreatment(treatment: Treatment, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Treatment>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTreatment(treatment, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Use this method to delete the specific treatment.
+         * @summary Deletes specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteTreatment(treatmentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteTreatment(treatmentId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * By using treatmentId you can details of particular treatment.
+         * @summary Provides details about treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTreatmentDetail(treatmentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Treatment>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTreatmentDetail(treatmentId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get list of treatments
          * @summary Provides the list of all treatments
          * @param {*} [options] Override http request option.
@@ -115,6 +292,18 @@ export const LedTreatmentListApiFp = function(configuration?: Configuration) {
          */
         async getTreatments(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Treatment>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTreatments(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Use this method to update content of the treatment.
+         * @summary Updates specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {Treatment} treatment Treatment to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTreatment(treatmentId: string, treatment: Treatment, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Treatment>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTreatment(treatmentId, treatment, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -128,6 +317,36 @@ export const LedTreatmentListApiFactory = function (configuration?: Configuratio
     const localVarFp = LedTreatmentListApiFp(configuration)
     return {
         /**
+         * Create new treatment
+         * @summary Create new treatment
+         * @param {Treatment} treatment Create new treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTreatment(treatment: Treatment, options?: any): AxiosPromise<Treatment> {
+            return localVarFp.createTreatment(treatment, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Use this method to delete the specific treatment.
+         * @summary Deletes specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteTreatment(treatmentId: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteTreatment(treatmentId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * By using treatmentId you can details of particular treatment.
+         * @summary Provides details about treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTreatmentDetail(treatmentId: string, options?: any): AxiosPromise<Treatment> {
+            return localVarFp.getTreatmentDetail(treatmentId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get list of treatments
          * @summary Provides the list of all treatments
          * @param {*} [options] Override http request option.
@@ -135,6 +354,17 @@ export const LedTreatmentListApiFactory = function (configuration?: Configuratio
          */
         getTreatments(options?: any): AxiosPromise<Array<Treatment>> {
             return localVarFp.getTreatments(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Use this method to update content of the treatment.
+         * @summary Updates specific treatment
+         * @param {string} treatmentId pass the id of the particular treatment
+         * @param {Treatment} treatment Treatment to update
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTreatment(treatmentId: string, treatment: Treatment, options?: any): AxiosPromise<Treatment> {
+            return localVarFp.updateTreatment(treatmentId, treatment, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -146,6 +376,36 @@ export const LedTreatmentListApiFactory = function (configuration?: Configuratio
  */
 export interface LedTreatmentListApiInterface {
     /**
+     * Create new treatment
+     * @summary Create new treatment
+     * @param {Treatment} treatment Create new treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApiInterface
+     */
+    createTreatment(treatment: Treatment, options?: AxiosRequestConfig): AxiosPromise<Treatment>;
+
+    /**
+     * Use this method to delete the specific treatment.
+     * @summary Deletes specific treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApiInterface
+     */
+    deleteTreatment(treatmentId: string, options?: AxiosRequestConfig): AxiosPromise<void>;
+
+    /**
+     * By using treatmentId you can details of particular treatment.
+     * @summary Provides details about treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApiInterface
+     */
+    getTreatmentDetail(treatmentId: string, options?: AxiosRequestConfig): AxiosPromise<Treatment>;
+
+    /**
      * Get list of treatments
      * @summary Provides the list of all treatments
      * @param {*} [options] Override http request option.
@@ -153,6 +413,17 @@ export interface LedTreatmentListApiInterface {
      * @memberof LedTreatmentListApiInterface
      */
     getTreatments(options?: AxiosRequestConfig): AxiosPromise<Array<Treatment>>;
+
+    /**
+     * Use this method to update content of the treatment.
+     * @summary Updates specific treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {Treatment} treatment Treatment to update
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApiInterface
+     */
+    updateTreatment(treatmentId: string, treatment: Treatment, options?: AxiosRequestConfig): AxiosPromise<Treatment>;
 
 }
 
@@ -164,6 +435,42 @@ export interface LedTreatmentListApiInterface {
  */
 export class LedTreatmentListApi extends BaseAPI implements LedTreatmentListApiInterface {
     /**
+     * Create new treatment
+     * @summary Create new treatment
+     * @param {Treatment} treatment Create new treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApi
+     */
+    public createTreatment(treatment: Treatment, options?: AxiosRequestConfig) {
+        return LedTreatmentListApiFp(this.configuration).createTreatment(treatment, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Use this method to delete the specific treatment.
+     * @summary Deletes specific treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApi
+     */
+    public deleteTreatment(treatmentId: string, options?: AxiosRequestConfig) {
+        return LedTreatmentListApiFp(this.configuration).deleteTreatment(treatmentId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * By using treatmentId you can details of particular treatment.
+     * @summary Provides details about treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApi
+     */
+    public getTreatmentDetail(treatmentId: string, options?: AxiosRequestConfig) {
+        return LedTreatmentListApiFp(this.configuration).getTreatmentDetail(treatmentId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Get list of treatments
      * @summary Provides the list of all treatments
      * @param {*} [options] Override http request option.
@@ -172,6 +479,19 @@ export class LedTreatmentListApi extends BaseAPI implements LedTreatmentListApiI
      */
     public getTreatments(options?: AxiosRequestConfig) {
         return LedTreatmentListApiFp(this.configuration).getTreatments(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Use this method to update content of the treatment.
+     * @summary Updates specific treatment
+     * @param {string} treatmentId pass the id of the particular treatment
+     * @param {Treatment} treatment Treatment to update
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LedTreatmentListApi
+     */
+    public updateTreatment(treatmentId: string, treatment: Treatment, options?: AxiosRequestConfig) {
+        return LedTreatmentListApiFp(this.configuration).updateTreatment(treatmentId, treatment, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

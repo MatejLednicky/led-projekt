@@ -42,8 +42,8 @@ export class LedTreatmentList {
         ? <div class="error">{this.errorMessage}</div>
         :
           <md-list>
-            {this.treatments.map((treatment, index) =>
-              <md-list-item onClick={ () => this.entryClicked.emit(index.toString())}>
+            {this.treatments.map(treatment =>
+              <md-list-item onClick={ () => this.entryClicked.emit(treatment.id)}>
               <div slot="headline">Liečebný plán pacienta:</div>
               <div slot="headline">{treatment.name}</div>
               <div slot="supporting-text">{"Začiatok liečby: " + this.isoDateToLocale(treatment.startDate)}</div>
@@ -53,6 +53,10 @@ export class LedTreatmentList {
             )}
           </md-list>
         }
+        <md-filled-icon-button class="add-button"
+          onclick={() => this.entryClicked.emit("@new")}>
+          <md-icon>add</md-icon>
+        </md-filled-icon-button>
       </Host>
     );
   }

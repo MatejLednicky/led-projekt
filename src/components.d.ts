@@ -11,7 +11,8 @@ export namespace Components {
         "basePath": string;
     }
     interface LedTreatmentEditor {
-        "entryId": string;
+        "apiBase": string;
+        "treatmentId": string;
     }
     interface LedTreatmentList {
         "ambulanceId": string;
@@ -100,8 +101,9 @@ declare namespace LocalJSX {
         "basePath"?: string;
     }
     interface LedTreatmentEditor {
-        "entryId"?: string;
+        "apiBase"?: string;
         "onEditor-closed"?: (event: LedTreatmentEditorCustomEvent<string>) => void;
+        "treatmentId"?: string;
     }
     interface LedTreatmentList {
         "ambulanceId"?: string;

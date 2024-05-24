@@ -52,7 +52,7 @@ export class LedTreatmentApp {
     return (
       <Host>
         { element === "editor"
-        ? <led-treatment-editor entry-id={entryId}
+        ? <led-treatment-editor treatment-id={entryId} api-base={this.apiBase}
             oneditor-closed={ () => navigate("./list")} >
           </led-treatment-editor>
         : <led-treatment-list api-base={this.apiBase}
