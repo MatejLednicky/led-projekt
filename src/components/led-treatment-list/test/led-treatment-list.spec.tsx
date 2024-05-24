@@ -9,7 +9,7 @@ describe('led-treatment-list', () => {
     });
 
     const wlList = page.rootInstance as LedTreatmentList;
-    const expectedPatients = wlList?.waitingPatients?.length
+    const expectedPatients = wlList?.treatments?.length
 
     const items = page.root.shadowRoot.querySelectorAll("md-list-item");
     expect(items.length).toEqual(expectedPatients);

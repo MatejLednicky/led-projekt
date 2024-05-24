@@ -1,4 +1,5 @@
-import { Component, Event, EventEmitter, Host, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, State, h } from '@stencil/core';
+import { LedTreatmentListApiFactory, Treatment } from '../../api/led-projekt';
 
 @Component({
   tag: 'led-treatment-list',
@@ -7,44 +8,51 @@ import { Component, Event, EventEmitter, Host, h } from '@stencil/core';
 })
 export class LedTreatmentList {
   @Event({ eventName: "entry-clicked"}) entryClicked: EventEmitter<string>;
+  @Prop() apiBase: string;
+  @Prop() ambulanceId: string;
+  @State() errorMessage: string;
 
-  waitingPatients: any[];
+  treatments: Treatment[];
 
-  private async getWaitingPatientsAsync(){
-    return await Promise.resolve(
-      [{
-        name: 'Janko Hraško',
-        patientId: '10001',
-        dateStart: new Date(Date.now()).toISOString(),
-        dateEnd: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString()
-    }, {
-        name: 'Jožko Mrkvička',
-        patientId: '10096',
-        dateStart: new Date(Date.now() - 50 * 24 * 60 * 60 * 1000).toISOString(),
-        dateEnd: new Date(Date.now() + 50 * 24 * 60 * 60 * 1000).toISOString()
-    }]
-    );
+  private async getTreatmentsAsync(): Promise<Treatment[]>{
+    try {
+      const response = await
+        LedTreatmentListApiFactory(undefined, this.apiBase).
+          getTreatments()
+      if (response.status < 299) {
+        return response.data;
+      } else {
+        this.errorMessage = `Cannot retrieve list of treatments: ${response.statusText}`
+      }
+    } catch (err: any) {
+      this.errorMessage = `Cannot retrieve list of treatments: ${err.message || "unknown"}`
+    }
+    return [];
   }
 
   async componentWillLoad() {
-    this.waitingPatients = await this.getWaitingPatientsAsync();
+    this.treatments = await this.getTreatmentsAsync();
   }
 
   render() {
     return (
       <Host>
         <h2>Zoznam liečebných plánov</h2>
-        <md-list>
-          {this.waitingPatients.map((patient, index) =>
-            <md-list-item onClick={ () => this.entryClicked.emit(index.toString())}>
-            <div slot="headline">Liečebný plán pacienta:</div>
-            <div slot="headline">{patient.name}</div>
-            <div slot="supporting-text">{"Začiatok liečby: " + this.isoDateToLocale(patient.dateStart)}</div>
-            <div slot="supporting-text">{"Koniec liečby: " + this.isoDateToLocale(patient.dateEnd)}</div>
-            <md-icon slot="start">person</md-icon>
-          </md-list-item>
-          )}
-        </md-list>
+        {this.errorMessage
+        ? <div class="error">{this.errorMessage}</div>
+        :
+          <md-list>
+            {this.treatments.map((treatment, index) =>
+              <md-list-item onClick={ () => this.entryClicked.emit(index.toString())}>
+              <div slot="headline">Liečebný plán pacienta:</div>
+              <div slot="headline">{treatment.name}</div>
+              <div slot="supporting-text">{"Začiatok liečby: " + this.isoDateToLocale(treatment.startDate)}</div>
+              <div slot="supporting-text">{"Koniec liečby: " + this.isoDateToLocale(treatment.endDate)}</div>
+              <md-icon slot="start">person</md-icon>
+            </md-list-item>
+            )}
+          </md-list>
+        }
       </Host>
     );
   }

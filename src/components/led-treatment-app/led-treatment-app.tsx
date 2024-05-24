@@ -11,8 +11,8 @@ declare global {
 })
 export class LedTreatmentApp {
   @State() private relativePath = "";
-
   @Prop() basePath: string="";
+  @Prop() apiBase: string;
 
   componentWillLoad() {
     const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
@@ -55,7 +55,7 @@ export class LedTreatmentApp {
         ? <led-treatment-editor entry-id={entryId}
             oneditor-closed={ () => navigate("./list")} >
           </led-treatment-editor>
-        : <led-treatment-list
+        : <led-treatment-list api-base={this.apiBase}
             onentry-clicked={ (ev: CustomEvent<string>)=> navigate("./entry/" + ev.detail) }>
         </led-treatment-list>
         }

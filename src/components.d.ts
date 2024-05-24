@@ -7,12 +7,15 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface LedTreatmentApp {
+        "apiBase": string;
         "basePath": string;
     }
     interface LedTreatmentEditor {
         "entryId": string;
     }
     interface LedTreatmentList {
+        "ambulanceId": string;
+        "apiBase": string;
     }
     interface MyComponent {
         /**
@@ -93,6 +96,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface LedTreatmentApp {
+        "apiBase"?: string;
         "basePath"?: string;
     }
     interface LedTreatmentEditor {
@@ -100,6 +104,8 @@ declare namespace LocalJSX {
         "onEditor-closed"?: (event: LedTreatmentEditorCustomEvent<string>) => void;
     }
     interface LedTreatmentList {
+        "ambulanceId"?: string;
+        "apiBase"?: string;
         "onEntry-clicked"?: (event: LedTreatmentListCustomEvent<string>) => void;
     }
     interface MyComponent {
