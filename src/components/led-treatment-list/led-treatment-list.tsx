@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, h } from '@stencil/core';
 
 @Component({
   tag: 'led-treatment-list',
@@ -6,6 +6,7 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class LedTreatmentList {
+  @Event({ eventName: "entry-clicked"}) entryClicked: EventEmitter<string>;
 
   waitingPatients: any[];
 
@@ -34,13 +35,13 @@ export class LedTreatmentList {
       <Host>
         <h2>Zoznam liečebných plánov</h2>
         <md-list>
-          {this.waitingPatients.map(patient =>
-            <md-list-item>
+          {this.waitingPatients.map((patient, index) =>
+            <md-list-item onClick={ () => this.entryClicked.emit(index.toString())}>
             <div slot="headline">Liečebný plán pacienta:</div>
             <div slot="headline">{patient.name}</div>
             <div slot="supporting-text">{"Začiatok liečby: " + this.isoDateToLocale(patient.dateStart)}</div>
             <div slot="supporting-text">{"Koniec liečby: " + this.isoDateToLocale(patient.dateEnd)}</div>
-              <md-icon slot="start">person</md-icon>
+            <md-icon slot="start">person</md-icon>
           </md-list-item>
           )}
         </md-list>
