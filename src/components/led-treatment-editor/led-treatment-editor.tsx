@@ -93,9 +93,9 @@ export class LedTreatmentEditor {
           required
           error-text="Začiatok liečby je povinný údaj"
           disabled={ !this.treatment }
-          value={this.treatment?.startDate}
+          valueAsDate={new Date(this.treatment?.startDate)}
           oninput={ (ev: InputEvent) => {
-            if(this.treatment) {this.treatment.startDate = this.handleInputEvent(ev)}
+            if(this.treatment) {this.treatment.startDate = new Date(this.handleInputEvent(ev)).toISOString()}
           }}>
           <md-icon slot="leading-icon">watch_later</md-icon>
         </md-filled-text-field>
@@ -106,9 +106,9 @@ export class LedTreatmentEditor {
           required
           error-text="Koniec liečby je povinný údaj"
           disabled={ !this.treatment }
-          value={this.treatment?.endDate}
+          valueAsDate={new Date(this.treatment?.endDate)}
           oninput={ (ev: InputEvent) => {
-            if(this.treatment) {this.treatment.endDate = this.handleInputEvent(ev)}
+            if(this.treatment) {this.treatment.endDate = new Date(this.handleInputEvent(ev)).toISOString()}
           }}>
           <md-icon slot="leading-icon">watch_later</md-icon>
         </md-filled-text-field>
