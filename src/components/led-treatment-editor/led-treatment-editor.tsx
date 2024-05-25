@@ -39,7 +39,7 @@ export class LedTreatmentEditor {
        const response = await LedTreatmentListApiFactory(undefined, this.apiBase).getTreatmentDetail(this.treatmentId)
 
        if (response.status < 299) {
-          this.treatment = response.data[0];
+          this.treatment = response.data;
           this.isValid = true;
        } else {
           this.errorMessage = `Cannot retrieve list of waiting patients: ${response.statusText}`
