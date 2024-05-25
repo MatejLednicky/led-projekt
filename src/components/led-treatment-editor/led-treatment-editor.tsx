@@ -82,12 +82,18 @@ export class LedTreatmentEditor {
         </md-filled-text-field>
 
         <md-filled-text-field label="Začiatok liečby" disabled={ !this.treatment }
-          value={this.treatment?.startDate}>
+          required value={this.treatment?.startDate}
+          oninput={ (ev: InputEvent) => {
+            if(this.treatment) {this.treatment.startDate = this.handleInputEvent(ev)}
+          }}>
           <md-icon slot="leading-icon">watch_later</md-icon>
         </md-filled-text-field>
 
         <md-filled-text-field label="Koniec liečby" disabled={ !this.treatment }
-          value={this.treatment?.endDate}>
+          required value={this.treatment?.endDate}
+          oninput={ (ev: InputEvent) => {
+            if(this.treatment) {this.treatment.endDate = this.handleInputEvent(ev)}
+          }}>
           <md-icon slot="leading-icon">watch_later</md-icon>
         </md-filled-text-field>
       </form>
