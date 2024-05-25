@@ -1,6 +1,8 @@
 import { Component, Host, Prop, State, h, EventEmitter, Event } from '@stencil/core';
 import { LedTreatmentListApiFactory, Treatment } from '../../api/led-projekt';
 
+import '@material/mwc-expansion-panel';
+
 @Component({
   tag: 'led-treatment-editor',
   styleUrl: 'led-treatment-editor.css',
@@ -65,37 +67,43 @@ export class LedTreatmentEditor {
   return (
     <Host>
       <form ref={el => this.formElement = el}>
-        <md-filled-text-field label="Meno a Priezvisko" 
-          required value={this.treatment?.name}
-          oninput={ (ev: InputEvent) => {
-              if(this.treatment) {this.treatment.name = this.handleInputEvent(ev)}
-          }}>
-          <md-icon slot="leading-icon">person</md-icon>
-        </md-filled-text-field>
+        <mwc-expansion-panel>
+          <div slot="header">Pacient info</div>
+          <md-filled-text-field label="Meno a Priezvisko" 
+            required value={this.treatment?.name}
+            oninput={ (ev: InputEvent) => {
+                if(this.treatment) {this.treatment.name = this.handleInputEvent(ev)}
+            }}>
+            <md-icon slot="leading-icon">person</md-icon>
+          </md-filled-text-field>
 
-        <md-filled-text-field label="Registračné číslo pacienta" 
-          required value={this.treatment?.patientId}
-          oninput={ (ev: InputEvent) => {
-              if(this.treatment) {this.treatment.patientId = this.handleInputEvent(ev)}
-          }}>
-          <md-icon slot="leading-icon">fingerprint</md-icon>
-        </md-filled-text-field>
+          <md-filled-text-field label="Rodné číslo pacienta" 
+            required value={this.treatment?.patientId}
+            oninput={ (ev: InputEvent) => {
+                if(this.treatment) {this.treatment.patientId = this.handleInputEvent(ev)}
+            }}>
+            <md-icon slot="leading-icon">fingerprint</md-icon>
+          </md-filled-text-field>
+        </mwc-expansion-panel>
 
-        <md-filled-text-field label="Začiatok liečby" disabled={ !this.treatment }
-          required value={this.treatment?.startDate}
-          oninput={ (ev: InputEvent) => {
-            if(this.treatment) {this.treatment.startDate = this.handleInputEvent(ev)}
-          }}>
-          <md-icon slot="leading-icon">watch_later</md-icon>
-        </md-filled-text-field>
+        <mwc-expansion-panel>
+          <div slot="header">Liečebný plán info</div>
+          <md-filled-text-field label="Začiatok liečby" disabled={ !this.treatment }
+            required value={this.treatment?.startDate}
+            oninput={ (ev: InputEvent) => {
+              if(this.treatment) {this.treatment.startDate = this.handleInputEvent(ev)}
+            }}>
+            <md-icon slot="leading-icon">watch_later</md-icon>
+          </md-filled-text-field>
 
-        <md-filled-text-field label="Koniec liečby" disabled={ !this.treatment }
-          required value={this.treatment?.endDate}
-          oninput={ (ev: InputEvent) => {
-            if(this.treatment) {this.treatment.endDate = this.handleInputEvent(ev)}
-          }}>
-          <md-icon slot="leading-icon">watch_later</md-icon>
-        </md-filled-text-field>
+          <md-filled-text-field label="Koniec liečby" disabled={ !this.treatment }
+            required value={this.treatment?.endDate}
+            oninput={ (ev: InputEvent) => {
+              if(this.treatment) {this.treatment.endDate = this.handleInputEvent(ev)}
+            }}>
+            <md-icon slot="leading-icon">watch_later</md-icon>
+          </md-filled-text-field>
+        </mwc-expansion-panel>
       </form>
 
       <md-divider></md-divider>
