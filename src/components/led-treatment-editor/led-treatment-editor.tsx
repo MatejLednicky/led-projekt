@@ -112,11 +112,6 @@ export class LedTreatmentEditor {
           }}>
           <md-icon slot="leading-icon">watch_later</md-icon>
         </md-filled-text-field>
-
-        <md-filled-text-field
-          type="textarea"
-          label="Opis liečebného plánu">
-        </md-filled-text-field>
       </form>
 
       <md-divider></md-divider>

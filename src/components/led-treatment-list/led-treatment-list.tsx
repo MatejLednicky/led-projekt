@@ -53,10 +53,11 @@ export class LedTreatmentList {
             )}
           </md-list>
         }
-        <md-filled-icon-button class="add-button"
-          onclick={() => this.entryClicked.emit("@new")}>
-          <md-icon>add</md-icon>
-        </md-filled-icon-button>
+        <md-filled-button 
+          onClick={() => this.entryClicked.emit("@new")}>
+          <md-icon slot="icon">add</md-icon>
+          Nový liečebný plán
+        </md-filled-button>
       </Host>
     );
   }
